@@ -1,5 +1,5 @@
 #!/bin/bash
-#CODE CURRENTLY UNTESTED ON UBUNTU SYSTEM. DO NOT RUN OUTSIDE OF VIRTUAL MACHINE
+
 function usermanagement {
     echo "refer to the readme. Is " $1 " in the list of documented users? (y/n)"
     read userbool
