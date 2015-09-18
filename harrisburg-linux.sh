@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function usermanagement {
+    
+}
+
 function main {
     #variable assignment
     now="$(date +'%d/%m/%Y %r')"
@@ -10,6 +14,14 @@ function main {
     #preperation
     mkdir -v $HOME/.log-files
     cd $HOME/.log-files
+    #interactive user management
+    i = 1;
+    cat /etc/passwd | grep "/home" | cut -d: -f1 | sed -e 's/\s*//' | while read line
+    do
+        array[ $1 ]="$line"
+        (( i++ ))
+        usermanagement($line)
+    done
     #installs
     apt-get update
     apt-get upgrade
