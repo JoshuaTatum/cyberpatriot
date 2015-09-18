@@ -1,7 +1,21 @@
 #!/bin/bash
-
+#CODE CURRENTLY UNTESTED ON UBUNTU SYSTEM. DO NOT RUN OUTSIDE OF VIRTUAL MACHINE
 function usermanagement {
-    
+    echo "refer to the readme. Is " $1 " in the list of documented users? (y/n)"
+    read userbool
+    if (( ("$userbool") == "y" )); then
+        return
+    elif (( ("$userbool") == "n" )); then
+        echo "You entered 'n'. Are you sure " $1 " is not in the list of documented users? (responding with 'y' will delete the user) (y/n)"
+        read userbool
+        if (( ("$userbool") == "y" )); then
+            userdel -r $1
+        else
+            return
+        fi
+    else
+        echo "input not recognized"
+    fi
 }
 
 function main {
@@ -20,7 +34,7 @@ function main {
     do
         array[ $1 ]="$line"
         (( i++ ))
-        usermanagement($line)
+        usermanagement $line
     done
     #installs
     apt-get update
