@@ -11,7 +11,7 @@ function main {
     mkdir -v $HOME/.log-files
     cd $HOME/.log-files
     #installs
-    apt-get -V -y install firefox, hardinfo, chkrootkit, iptables, portsentry, lynis
+    apt-get -V -y install firefox, hardinfo, chkrootkit, iptables, portsentry, lynis, ufw
     apt-get update
     apt-get upgrade
     #information gathering
