@@ -1,23 +1,5 @@
 #!/bin/bash
 
-function usermanagement {
-    echo "refer to the readme. Is " $1 " in the list of documented users? (y/n)"
-    read userbool
-    if (( ("$userbool") == "y" )); then
-        return
-    elif (( ("$userbool") == "n" )); then
-        echo "You entered 'n'. Are you sure " $1 " is not in the list of documented users? (responding with 'y' will delete the user) (y/n)"
-        read userbool
-        if (( ("$userbool") == "y" )); then
-            userdel -r $1
-        else
-            return
-        fi
-    else
-        echo "input not recognized"
-    fi
-}
-
 function main {
     #variable assignment
     now="$(date +'%d/%m/%Y %r')"
@@ -28,25 +10,10 @@ function main {
     #preperation
     mkdir -v $HOME/.log-files
     cd $HOME/.log-files
-    #interactive user management
-    i = 1;
-    cat /etc/passwd | grep "/home" | cut -d: -f1 | sed -e 's/\s*//' | while read line
-    do
-        array[ $1 ]="$line"
-        (( i++ ))
-        usermanagement $line
-    done
     #installs
+    apt-get -V -y install firefox, hardinfo, chkrootkit, iptables, portsentry, lynis
     apt-get update
     apt-get upgrade
-    apt-get -V -y install firefox, hardinfo, chkrootkit, iptables, portsentry, lynis
-    #tar.gz installs
-        #checkps
-        wget http://downloads.sourceforge.net/project/checkps/checkps/1.3.2/check-ps-1.3.2.1.tar.gz
-        tar -zxvf check-ps-1.3.2.1.tar.gz
-        cd check-ps-1.3.2.1
-        ./configure
-        make install
     #information gathering
     hardinfo -r -f html > /root/.logfiles/hardinfo-html.html
     chkrootkit > /root/.logfiles/chkrootkit.log
