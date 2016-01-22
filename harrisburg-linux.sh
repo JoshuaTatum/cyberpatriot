@@ -11,14 +11,13 @@ function main {
     mkdir -v $HOME/.log-files
     cd $HOME/.log-files
     #installs
-    apt-get -V -y install firefox, hardinfo, chkrootkit, iptables, portsentry, lynis, ufw
+    apt-get -V -y install firefox hardinfo chkrootkit iptables portsentry lynis ufw gufw
     apt-get update
     apt-get upgrade
     #information gathering
-    hardinfo -r -f html > /root/.logfiles/hardinfo-html.html
-    chkrootkit > /root/.logfiles/chkrootkit.log
-    checkps > /root/.logfiles/checkps.log
-    lynis -c > /root/.logfiles/lynis.log
+    hardinfo -r -f html 
+    chkrootkit 
+    lynis -c 
     #network security
     iptables -A INPUT -p tcp -s 0/0 -d 0/0 --dport 23 -j DROP         #Block Telnet
     iptables -A INPUT -p tcp -s 0/0 -d 0/0 --dport 2049 -j DROP       #Block NFS
@@ -30,6 +29,11 @@ function main {
     iptables -A INPUT -p tcp -s 0/0 -d 0/0 --dport 111 -j DROP        #Block Sun rpc/NFS
     iptables -A INPUT -p udp -s 0/0 -d 0/0 --dport 111 -j DROP        #Block Sun rpc/NFS
     iptables -A INPUT -p all -s localhost  -i eth0 -j DROP            #Deny outside packets from internet which claim to be from your loopback interface.
+    ufw enable
+    ufw deny 23
+    ufw deny 2049
+    ufw deny 515
+    ufw deny 111
     #media file deletion
     find / -name '*.mp3' -type f -delete
     find / -name '*.mov' -type f -delete
