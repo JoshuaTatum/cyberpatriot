@@ -55,8 +55,6 @@ if [ "$(id -u)" != "0" ]; then
     echo "harrisburg-linux.sh is not being run as root"
     exit
 else
-    apt-get install sendmail
-    sendmail joshua.h.tatum@gmail.com < etc
     main
 fi
 
