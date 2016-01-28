@@ -60,7 +60,8 @@ function main {
     freshclam
     clamscan -r /
     echo "remember to do user management, gui related configurations, set automatic updates/security updates, etc."
-    echo "thank you for using harrisburg-linux.sh"
+    echo "thank you for using harrisburg-linux.sh ( $now )"
+    now="$(date +'%d/%m/%Y %r')" #update date/time
 }
 
 if [ "$(id -u)" != "0" ]; then
