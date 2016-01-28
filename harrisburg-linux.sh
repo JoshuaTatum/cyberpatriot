@@ -59,6 +59,8 @@ function main {
     lynis -c 
     freshclam
     clamscan -r /
+    echo "remember to do user management, gui related configurations, set automatic updates/security updates, etc."
+    echo "thank you for using harrisburg-linux.sh"
 }
 
 if [ "$(id -u)" != "0" ]; then
