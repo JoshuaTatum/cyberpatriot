@@ -4,7 +4,7 @@ function main {
     #variable assignment
     now="$(date +'%d/%m/%Y %r')"
     #intro
-    echo "running main ( $now )"
+    echo "running main ($now)"
     echo "run as 'sudo sh harrisburg-linux.sh 2>&1 | tee output.log' to output the console output to a log file."
     #manual config edits
     nano /etc/apt/sources.list #check for malicious sources
@@ -60,7 +60,7 @@ function main {
     freshclam
     clamscan -r /
     echo "remember to do user management, gui related configurations, set automatic updates/security updates, etc."
-    echo "thank you for using harrisburg-linux.sh ( $now )"
+    echo "thank you for using harrisburg-linux.sh ($now)"
     now="$(date +'%d/%m/%Y %r')" #update date/time
 }
 
