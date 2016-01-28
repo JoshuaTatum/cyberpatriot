@@ -63,6 +63,7 @@ function main {
 
 if [ "$(id -u)" != "0" ]; then
     echo "harrisburg-linux.sh is not being run as root"
+    echo "run as 'sudo sh harrisburg-linux.sh 2>&1 | tee output.log' to output the console output to a log file."
     exit
 else
     main
