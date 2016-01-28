@@ -6,10 +6,6 @@ function main {
     #intro
     echo "running main ( $now )"
     echo "run as 'sudo sh harrisburg-linux.sh 2>&1 | tee output.log' to output the console output to a log file."
-    echo "refer to /root/.logfiles/ folder for program logs"
-    #preperation
-    mkdir -v $HOME/.log-files
-    cd $HOME/.log-files
     #manual config edits
     nano /etc/apt/sources.list #check for malicious sources
     nano /etc/resolv.conf #make sure if safe, use 8.8.8.8 for name server
