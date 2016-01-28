@@ -10,14 +10,20 @@ function main {
     #preperation
     mkdir -v $HOME/.log-files
     cd $HOME/.log-files
+    #manual config edits
+    nano /etc/apt/sources.list #check for malicious sources
+    nano /etc/resolv.conf #make sure if safe, use 8.8.8.8 for name server
+    nano /etc/hosts #make sure is not redirecting
+    nano /etc/rc.local #should be empty except for 'exit 0'
+    nano /etc/sysctl.conf #change net.ipv4.tcp_syncookies entry from 0 to 1
+    nano /etc/lightdm/lightdm.conf #allow_guest=false, remove autologin
+    nano /etc/ssh/sshd_config #Look for PermitRootLogin and set to no
     #installs
-    apt-get -V -y install firefox hardinfo chkrootkit iptables portsentry lynis ufw gufw
+    apt-get -V -y install firefox hardinfo chkrootkit iptables portsentry lynis ufw gufw sysv-rc-conf nessus clamav
+    apt-get -V -y install --reinstall coreutils
     apt-get update
     apt-get upgrade
-    #information gathering
-    hardinfo -r -f html 
-    chkrootkit 
-    lynis -c 
+    apt-get dist-upgrade
     #network security
     iptables -A INPUT -p tcp -s 0/0 -d 0/0 --dport 23 -j DROP         #Block Telnet
     iptables -A INPUT -p tcp -s 0/0 -d 0/0 --dport 2049 -j DROP       #Block NFS
@@ -34,6 +40,8 @@ function main {
     ufw deny 2049
     ufw deny 515
     ufw deny 111
+    lsof  -i -n -P
+    netstat -tulpn
     #media file deletion
     find / -name '*.mp3' -type f -delete
     find / -name '*.mov' -type f -delete
@@ -49,6 +57,12 @@ function main {
     find /home -name '*.png' -type f -delete
     find /home -name '*.jpg' -type f -delete
     find /home -name '*.jpeg' -type f -delete
+    #information gathering
+    hardinfo -r -f html 
+    chkrootkit 
+    lynis -c 
+    freshclam
+    clamscan -r /
 }
 
 if [ "$(id -u)" != "0" ]; then
